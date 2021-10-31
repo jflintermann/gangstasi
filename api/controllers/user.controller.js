@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../index.js");
 const User = db.user;
 const Op = db.Sequelize.Op;
 
@@ -6,7 +6,8 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     if (!req.body.name) {
         res.status(400).send({
-          message: "Name cannot be empty!"
+          message: "Name cannot be empty!",
+          request: req.body
         });
         return;
     }

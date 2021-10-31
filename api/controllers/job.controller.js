@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../index.js");
 const Job = db.job;
 const Op = db.Sequelize.Op;
 
@@ -6,7 +6,8 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     if (!req.body.user_id) {
         res.status(400).send({
-          message: "Must be logged in!"
+          message: "Must be logged in!",
+          request: req.body
         });
         return;
     }

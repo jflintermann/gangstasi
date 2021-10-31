@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const dbConfig = require("../config/db.config_dev.js");
+const dbConfig = require("./config/db.config_dev.js");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -19,11 +19,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.user = require("./user.model.js")(sequelize, Sequelize);
-db.job = require("./job.model.js")(sequelize, Sequelize);
-db.jobvalue = require("./jobvalue.model.js")(sequelize, Sequelize);
-db.jobvalueemail = require("./jobvalueemail.model.js")(sequelize, Sequelize);
-db.jobvaluedata = require("./jobvaluedata.model.js")(sequelize, Sequelize);
+db.user = require("./models/user.model.js")(sequelize, Sequelize);
+db.job = require("./models/job.model.js")(sequelize, Sequelize);
+db.jobvalue = require("./models/jobvalue.model.js")(sequelize, Sequelize);
+db.jobvalueemail = require("./models/jobvalueemail.model.js")(sequelize, Sequelize);
+db.jobvaluedata = require("./models/jobvaluedata.model.js")(sequelize, Sequelize);
 
 db.user.hasMany(db.job, { as: "job" });
 db.job.hasMany(db.jobvalue, { as: "jobvalue"});
