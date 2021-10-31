@@ -1,16 +1,16 @@
 const Sequelize = require("sequelize");
-const dbConfig = require("../config/db.config.js");
+const dbConfig = require("../config/db.config_dev.js");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
+  port: dbConfig.PORT,
+  dialect: dbConfig.DIALECT,
 
   pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
+    max: dbConfig.POOL.MAX,
+    min: dbConfig.POOL.MIN,
+    acquire: dbConfig.POOL.ACQUIRE,
+    idle: dbConfig.POOL.IDLE
   }
 });
 
@@ -30,17 +30,9 @@ db.job.hasMany(db.jobvalue, { as: "jobvalue"});
 db.jobvalue.hasMany(db.jobvalueemail, { as: "jobvalueemail"});
 db.jobvalue.hasMany(db.jobvaluedata, { as: "jobvaluedata"});
 
-db.job.belongsTo(db.user, {
-    foreignKey: "userId"
-});
-db.jobvalue.belongsTo(db.job, {
-    foreignKey: "jobId"
-});
-db.jobvalueemail.belongsTo(db.jobvalue, {
-    foreignKey: "jobValueId"
-});
-db.jobvaluedata.belongsTo(db.jobvalue, {
-    foreignKey: "jobValueId"
-});
+db.job.belongsTo(db.user);
+db.jobvalue.belongsTo(db.job);
+db.jobvalueemail.belongsTo(db.jobvalue);
+db.jobvaluedata.belongsTo(db.jobvalue);
 
 module.exports = db;

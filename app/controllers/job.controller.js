@@ -2,9 +2,9 @@ const db = require("../models");
 const Job = db.job;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Job
+// Create and Save a new job
 exports.create = (req, res) => {
-    if (!req.body.userId) {
+    if (!req.body.user_id) {
         res.status(400).send({
           message: "Must be logged in!"
         });
@@ -17,17 +17,17 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Job
+    // Create a job
     const job = {
-        userId: req.body.userId,
         active: true,
         title: req.body.title,
         description: req.body.description,
         url: req.body.url,
-        visible: true
+        visible: true,
+        userId: req.body.user_id
       };
 
-    // Save Job in the database
+    // Save job in the database
     Job.create(job)
     .then(data => {
         res.send(data);
@@ -35,37 +35,44 @@ exports.create = (req, res) => {
     .catch(err => {
         res.status(500).send({
         message:
-            err.message || "Some error occurred while creating the Job."
+            err.message || "Some error occurred while creating the job."
         });
     });
 };
 
-// Retrieve all Jobs from the database by userId
+// Retrieve all jobs from the database by userId
 exports.findAll = (req, res) => {
+  const user_id = req.query.user_id;
+  var condition = user_id ? { user_id: user_id } : null;
   
+  Job.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving jobs."
+      });
+    });
 };
 
-// Find a single Job with an id
+// Find a single job with an id
 exports.findOne = (req, res) => {
   
 };
 
-// Update a Job by the id in the request
+// Update a job by the id in the request
 exports.update = (req, res) => {
   
 };
 
-// Delete a Job with the specified id in the request
+// Delete a job by the id in the request
 exports.delete = (req, res) => {
   
 };
 
-// Delete all Jobs from the database.
+// Delete all jobs from the database.
 exports.deleteAll = (req, res) => {
-  
-};
-
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
   
 };

@@ -6,15 +6,20 @@ module.exports = (sequelize, DataType) => {
       password: {
         type: DataType.STRING
       },
+      email: {
+        type: DataType.STRING
+      },
       session: {
         type: DataType.BOOLEAN
       },
-      lastLogin: {
+      last_login: {
         type: DataType.STRING
       },
       visible: {
         type: DataType.BOOLEAN
       }
+    }, {
+      underscored: true
     });
   
     return User;

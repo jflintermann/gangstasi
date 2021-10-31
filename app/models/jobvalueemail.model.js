@@ -1,8 +1,5 @@
 module.exports = (sequelize, DataType) => {
     const JobValueEmail = sequelize.define("jobvalueemail", {
-      jobValueId: {
-        type: DataType.STRING
-      },
       active: {
         type: DataType.BOOLEAN
       },
@@ -18,6 +15,8 @@ module.exports = (sequelize, DataType) => {
       visible: {
         type: DataType.BOOLEAN
       }
+    }, {
+      underscored: true
     });
   
     return JobValueEmail;
