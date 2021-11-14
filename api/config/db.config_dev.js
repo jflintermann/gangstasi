@@ -1,9 +1,9 @@
 module.exports = {
     HOST: "localhost",
     PORT: "5432",
-    USER: "snoopmetrix",
+    USER: "snemtrix",
     PASSWORD: "snx_3D5ru9HF",
-    DB: "snoopmetrix_dev",
+    DB: "snemtrix_dev",
     DIALECT: "postgres",
     POOL: {
       MAX: 5,
